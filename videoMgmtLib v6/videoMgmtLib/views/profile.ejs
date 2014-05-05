@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Video Library Management</title>
+<link rel="stylesheet" type="text/css" media="all" href="stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/media-queries.css" />
+<link rel="stylesheet" type="text/css" href="js/player/mediaelementplayer.css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,700,700italic|Open+Sans+Condensed:300,700' rel="stylesheet" type='text/css'>
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie9.css" media="all" />
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="js/retina.js"></script>
+<script type="text/javascript" src="js/selectnav.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/mediaelement.min.js"></script>
+<script type="text/javascript" src="js/mediaelementplayer.min.js"></script>
+<script type="text/javascript">
+	$.backstretch("images/bg/1.jpg");
+</script>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- Begin Header -->
+<div class="header-wrapper opacity">
+	<div class="header">
+		<!-- Begin Logo -->
+		<div class="logo">
+		     <% if (typeof user_fname != 'undefined') { %>
+		    	<h2>Welcome, <%= user_fname %><h2>
+		    <% } else { %>
+		    	Welcome
+		    <% } %>
+	    </div>
+		<!-- End Logo -->
+		<!-- Begin Menu -->
+		<div id="menu-wrapper">
+			<div id="menu" class="menu">
+				<ul id="tiny">
+					<li class="active"><a href="profile">Home</a>
+					<% if (typeof user_member_id != 'undefined') { %>
+					<li><a href="/user_logout">Logout</a></li>
+				<% } else { %>
+				<% } %>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- End Menu -->
+	</div>
+</div>
+<!-- End Header -->
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro"> VIDEO LIBRARY MANAGEMENT SYSTEM </div>
+
+<% if(typeof message !== 'undefined') { %>
+<div class="info-box"><%=message%></div>
+<% } else { %>
+<% } %>
+	
+<ul class="social">
+<li><a class="rss" href="#"></a></li><li><a class="facebook" href="#"></a></li><li><a class="twitter" href="#"></a></li><li><a class="pinterest" href="#"></a></li><li><a class="dribbble" href="#"></a></li><li><a class="flickr" href="#"></a></li><li><a class="linkedin" href="#"></a></li></ul><!-- End Intro --> 
+
+<!-- Begin Blog Grid -->
+<div class="box">
+<% if (typeof user_fname != 'undefined') { %>
+			<h2 class="title"><h2>Member Details</a></h2><br><br>
+			<% for (var i in member_details) { %>
+			
+				<h3>Full Name : <%=member_details[i].first_name%> <%=member_details[i].last_name%><br></h3>
+				<h3>Email : <%=member_details[i].EMAIL%><br></h3>
+				<h3>User Type : <%=member_details[i].type_of_user%><br></h3>
+				<h3>Account Balance : $<%=member_details[i].balance%> <br></h3>
+				<h3>Street Address : <%=member_details[i].street%> <br></h3>
+				<h3>City : <%=member_details[i].city%> <br></h3>
+				<h3>State : <%=member_details[i].state%> <br></h3>
+				<h3>Zipcode : <%=member_details[i].zipcode%> <br></h3>
+				
+			<% } %>
+			<% if (typeof available != 'undefined') { %>
+			<h3>Number of movies you can rent now : <%=available%> <br></h3>
+			<% } else { %>
+			<% } %>
+			
+			<a id="editOption" href="/changepass" class="button yellow">Change Password</a> <br><br>
+			
+			<h2>Movie History</h2>
+
+	
+	<% if (movie_details.length >= 1) { %>		
+	
+	<center><h2>Movie Rented in the Past</h2>	</center>
+		<table>
+			<tr>
+				<th>Transaction ID</th>
+				<th>Movie Name</th>
+				<th>Movie Banner</th>
+				<th>Movie Release Date</th>
+				<th>Rent Amount</th>
+				<th>IsReturned</th>
+			</tr>
+			<% for (var i in movie_details) {  %>
+			<tr>
+				<td><%=movie_details[i].transaction_id%></td>
+				<td><%=movie_details[i].movie_name%></td>
+				<td><%=movie_details[i].movie_banner%></td>
+				<td><%=movie_details[i].release_date%></td>
+				<td><%=movie_details[i].rent_amount%></td>
+				<% if (movie_details[i].is_returned == 1) { %>
+					<td><b>Pending</b></td>
+				<% } else { %>
+					<td>Returned</td>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+	<% } else { %>
+		<h6> No Movie History to Display </h6>
+	<% } %>
+	<% } else { %>
+	<% } %>
+		</div>
+		<!-- End Image Format -->
+
+ 	
+			<!-- Begin Footer -->
+<div class="footer-wrapper">
+<div id="footer" class="four">
+		<div id="first" class="widget-area">
+			<div class="widget widget_search">
+				<h3 class="widget-title">Search</h3>
+				<form class="searchform" method="get" action="#">
+					<input type="text" name="s" value="type and hit enter" onFocus="this.value=''" onBlur="this.value='type and hit enter'"/>
+				</form>
+			</div>
+			<div class="widget widget_archive">
+				<h3 class="widget-title">Archives</h3>
+				<ul>
+					<li><a href="#">September 2012</a> (6)</li>
+					<li><a href="#">August 2012</a> (2)</li>
+					<li><a href="#">July 2012</a> (2)</li>
+					<li><a href="#">June 2012</a> (4)</li>
+					<li><a href="#">May 2012</a> (3)</li>
+					<li><a href="#">January 2012</a> (1)</li>
+				</ul>
+			</div>	
+		</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area">
+			<div id="twitter-2" class="widget widget_twitter">
+					<h3 class="widget-title">Twitter</h3>
+					
+					<div id="twitter-wrapper">
+						<div id="twitter"></div>
+						<span class="username"><a href="http://twitter.com/elemisdesign">→ Follow @elemisdesign</a></span>
+					</div>
+			</div>
+		</div><!-- #second .widget-area -->
+	
+		<div id="third" class="widget-area">
+		<div id="example-widget-3" class="widget example">
+			<h3 class="widget-title">Popular Posts</h3>
+			<ul class="post-list">
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s1.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Charming Winter</a></h6>
+					    <em>28th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s2.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Trickling Stream</a></h6>
+					    <em>5th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s3.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="post.ejs">Morning Glory</a></h6>
+					    <em>26th Sep 2012</em>
+				    </div>
+				</li>
+			</ul>
+			
+		</div>
+		</div><!-- #third .widget-area -->
+		
+		<div id="fourth" class="widget-area">
+		<div class="widget">
+			<h3 class="widget-title">Flickr</h3>
+			<ul class="flickr-feed"></ul>
+			
+		</div>
+		</div><!-- #fourth .widget-area -->
+	</div>
+</div>
+<div class="site-generator-wrapper">
+	<div class="site-generator">Copyright Obscura 2012. Design by <a href="http://elemisfreebies.com">elemis</a>. All rights reserved.</div>
+</div>
+<!-- End Footer --> 
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>

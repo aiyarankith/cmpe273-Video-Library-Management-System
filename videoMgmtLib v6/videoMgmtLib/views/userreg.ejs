@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>Video Library Management</title>
+<link rel="stylesheet" type="text/css" media="all" href="stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/media-queries.css" />
+<link rel="stylesheet" type="text/css" href="js/player/mediaelementplayer.css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,700,700italic|Open+Sans+Condensed:300,700' rel="stylesheet" type='text/css'>
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie9.css" media="all" />
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="js/retina.js"></script>
+<script type="text/javascript" src="js/selectnav.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/mediaelement.min.js"></script>
+<script type="text/javascript" src="js/mediaelementplayer.min.js"></script>
+<script type="text/javascript">
+	$.backstretch("images/bg/1.jpg");
+</script>
+			<script type="text/javascript">
+			function validate()
+			{
+ 
+			   if( document.getElementById('first_name').value == "" )
+			   {
+			     alert( "Please provide your first name!" );
+			     document.myForm.first_name.focus() ;
+			     return false;
+			   }
+			    if( document.getElementById('last_name').value == "" )
+			   {
+			     alert( "Please provide your last name!" );
+			     document.myForm.last_name.focus() ;
+			     return false;
+			   }
+			    if( document.getElementById('email').value == "" )
+			   {
+			     alert( "Please provide your email!" );
+			     document.myForm.email.focus() ;
+			     return false;
+			   }
+			     var emailID = document.forms["myForm"]["email"].value;
+			    atpos = emailID.indexOf("@");
+			    dotpos = emailID.lastIndexOf(".");
+			    if (atpos < 1 || ( dotpos - atpos < 2 ))
+			    {
+			        alert("Please enter correct email ID")
+			        return false;
+    			}
+    			if( document.getElementById('street').value == "" )
+			   {
+			     alert( "Please provide your street!" );d
+			     document.myForm.street.focus() ;
+			     return false;
+			   }
+    			if( document.getElementById('city').value == "" )
+			   {
+			     alert( "Please provide your city!" );
+			     document.myForm.city.focus() ;
+			     return false;
+			   }
+			   if( document.getElementById('zipcode').value == "" )
+			   {
+			     alert( "Please provide your zipcode!" );
+			     document.myForm.city.focus() ;
+			     return false;
+			   }
+			   
+    			 }
+			     
+               
+    
+
+			
+				   </script>
+</head>
+<body class="single">
+<div class="scanlines"></div>
+
+<!-- Begin Header -->
+<div class="header-wrapper opacity">
+	<div class="header">
+		<!-- Begin Logo -->
+		<div class="logo">
+		    <% if (admin_fname != null) { %>
+		    	<h2>Welcome, <%= admin_fname %></h2>
+		    <% } else { %>
+		    	<h2>Welcome</h2>
+		    <% } %>
+	    </div>
+		<!-- End Logo -->
+		<!-- Begin Menu -->
+		<div id="menu-wrapper">
+			<div id="menu" class="menu">
+				<ul id="tiny">
+				<li>
+				<a href="admin_home">Home</a> </li>
+				<li class="active"><a href="userreg">Register New User </a></li>
+				<li><a href="/registermovie">Register New Movie </a></li>
+				
+				<% if (admin_fname != null) { %>
+					<li><a href="/logout">Logout</a></li>
+				<% } else { %>
+				<% } %>
+				
+						
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- End Menu -->
+	</div>
+</div>
+<!-- End Header -->
+
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro"> VIDEO LIBRARY MANAGEMENT SYSTEM </div>
+<ul class="social">
+<li><a class="rss" href="#"></a></li><li><a class="facebook" href="#"></a></li><li><a class="twitter" href="#"></a></li><li><a class="pinterest" href="#"></a></li><li><a class="dribbble" href="#"></a></li><li><a class="flickr" href="#"></a></li><li><a class="linkedin" href="#"></a></li></ul><!-- End Intro --> 
+
+	<!-- Begin Main Image -->
+	<div class="main-image">
+		<!--<div class="outer">
+		<span class="inset"><img src="images/art/register.png" alt="" /></span> 
+		</div>-->
+	</div>
+	<!-- End Main Image --> 
+
+
+<!-- Begin Container -->
+<div class="content">
+
+		<!-- Begin Post -->
+		<!--<div class="post format-image box"> 
+
+			<div class="details">
+				<span class="icon-image">September 26, 2012</span>
+				<span class="likes"><a href="#" class="likeThis">44</a></span>
+				<span class="comments"><a href="#">3</a></span>
+			</div> -->
+		
+			<div class="post format-quote box"> 
+		<h1 class="title">Add User</h1>
+		
+			
+		
+		<form action="/user_registration" method="post" id="myForm" name="myForm"  onsubmit="return validate()">
+			<label>Firstname</label> <input type = "text" placeholder ="FirstName" name="first_name" id="first_name"  />
+			<label>Lastname </label> <input type = "text" placeholder ="LastName"  name="last_name"  id="last_name"  />
+			<label>Email    </label> <input type = "text" placeholder ="Email"     name="email"     id="email"    />
+			<label>Password </label> <input type=  "password"  name="password"  id="password"/>   <br><br>
+			<label> Type of User </label> <select name="type_of_user"> <id="type_of_user"><option value="simple">simple</option>
+							                                   <option value="premium">premium</option>
+							                                   <option value="admin">admin</option>
+											</select></id><br><br>
+			<label>Street </label> <input type = "text" placeholder ="street"  name="street" id="street" />
+			<label>State </label> <input type = "text" placeholder ="state"  name="state" id="state" />
+			<label>City </label> <input type = "text" placeholder ="city"  name="city" id="city"/>
+			<label>ZipCode </label> <input type = "text" placeholder ="zipcode"  name="zipcode" id="zipcode"    />
+			<input type="submit" name="submit" value="Submit"/>
+		</form>
+			
+
+			<p>Note: Please make sure your details are correct before submitting form and that all fields marked with * are completed!.</p>
+
+		<!--	<div class="post-nav">
+				<span class="nav-prev"><a href="#">&larr; Rock Paper Scissors Lizard Spock</a></span>
+				<span class="nav-next"><a href="#">Charming Winter &rarr;</a></span>
+				<div class="clear"></div>
+			</div> -->
+
+		</div>
+		<!-- End Post --> 	
+	
+		<!-- Begin Comment Wrapper -->
+		<div id="comment-wrapper" class="box">
+		  
+		  <!-- Begin Comments -->
+		  <div id="comments">
+	            
+			<h3 id="comments-title">3 Responses to "Morning Glory"</h3>
+	    
+	        <ol id="singlecomments" class="commentlist">
+	      	<li class="comment">
+				<div class="comment">
+					<div class="comment-author vcard user frame">
+						<img alt="" src='http://1.gravatar.com/avatar/30b2dad884c817cb09ad5fa61dad7e44?s=70&amp;d=retro&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />
+					</div>
+					<div class="message">
+						<span class="reply-link"><a class="comment-reply-link" href="#">Reply</a></span>
+						<div class="info">
+							<h2>Marshall Eriksen</h2>
+							<span class="meta">September 13, 2012 at 12:32 pm</span>
+						</div>
+						<div class="comment-body ">
+							<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Aenean lacinia bibendum nulla sed consectetur.</p>
+						</div>
+						<span class="edit-link"></span>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</li>
+			<li class="comment">
+				<div class="comment">
+					<div class="comment-author vcard user frame">
+						<img alt="" src='http://0.gravatar.com/avatar/2876eddf6bce8c3f8527990c2d115c99?s=70&amp;d=retro&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />
+					</div>
+					<div class="message">
+						<span class="reply-link"><a class="comment-reply-link" href="#">Reply</a></span>
+						<div class="info">
+							<h2>Laura</h2>
+							<span class="meta">September 13, 2012 at 1:26 pm</span>
+						</div>
+						<div class="comment-body ">
+							<p>Maecenas sed diam eget risus varius blandit sit amet non magna. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+						</div>
+						<span class="edit-link"></span>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			
+					<ul class='children'>
+						<li class="comment even depth-2" id="li-comment-5">
+							<div id="comment-5" class="com-wrap">
+								<div class="comment-author vcard user frame">
+									<img alt='' src='http://0.gravatar.com/avatar/6a81b453436b12149e7d6d109f4acb66?s=70&amp;d=retro&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />			</div><!-- .comment-author .vcard -->
+								<div class="message">
+									<span class="reply-link"><a class='comment-reply-link' href='/obscura-wp/morning-glory/?replytocom=5#respond' onclick='return addComment.moveForm("comment-5", "5", "respond", "16")'>Reply</a></span>
+									<div class="info">
+										<h2>Jason</h2>					<span class="meta">
+											September 13, 2012 at 1:27 pm					</span><!-- .comment-meta .commentmetadata -->
+									</div>
+									<div class="comment-body ">
+										<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Curabitur blandit tempus porttitor.</p>
+									</div>
+													<span class="edit-link"></span>
+								</div>
+								<div class="clear"></div>
+							</div><!-- #comment-##  -->
+							<div class="clear"></div>
+						</li>
+					</ul>
+				</li>
+			</ol>
+		</div>
+		<!-- End Comments -->
+	
+		<!-- Begin Form -->
+		<div id="comment-form" class="comment-form">
+		
+			<div id="respond">
+						<h3 id="reply-title">Leave a Reply</h3>
+						
+						<form action="#" method="post" id="commentform">
+							<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+							
+							<p class="comment-form-author">
+								<label for="author">Name</label> <span class="required">*</span>
+								<input id="author" name="author" type="text" value="" size="30" aria-required='true' />
+							</p>
+							<p class="comment-form-email">
+								<label for="email">Email</label> <span class="required">*</span>
+								<input id="email" name="email" type="text" value="" size="30" aria-required='true' />
+							</p>
+							<p class="comment-form-url">
+								<label for="url">Website</label>
+								<input id="url" name="url" type="text" value="" size="30" />
+							</p>
+							<p class="comment-form-comment">
+								<label for="comment">Comment</label>
+								<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+							</p>
+							<p class="form-submit">
+								<input name="submit" type="submit" id="submit" value="Post Comment" />
+							</p>
+						
+			</div><!-- #respond -->	
+	  	
+		</div>
+		<!-- End Form -->	
+		
+		
+		</div>	
+		<!-- End Comment Wrapper -->
+
+</div>
+<!-- End Container -->
+
+<!-- Begin Sidebar -->
+<div class="sidebar box">
+  <div class="sidebox widget">
+			<h3 class="widget-title">Upcoming Movies</h3>
+			<ul class="post-list">
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/spiderman.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <!--<h6><a href="#">Spider-Man 2</a></h6>
+					    <em>28th Sep 2012</em>-->
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/terminator.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Terminator</a></h6>
+					    <em>5th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/hh.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Morning Glor</a></h6>
+					    <em>26th Sep 2012</em>
+				    </div>
+				</li>
+			</ul>
+			
+	</div>
+	
+	<div class="sidebox widget">
+		<h3 class="widget-title">Search</h3>
+		<form class="searchform" method="get" action="#">
+			<input type="text" name="s" value="type and hit enter" onFocus="this.value=''" onBlur="this.value='type and hit enter'"/>
+		</form>
+	</div>
+	
+	<div class="sidebox widget">
+		<h3 class="widget-title">Custom Text</h3>
+		<div>Suspendisse eu odio quis elit ultrice commodo tempor eget arcu. Sedur aliquet posuere lectus aliquam iaculi. Curabitur a risus metus. In ut lorem nisl, et adipiscing sapien. Donec sed risus tristiq scelerisque. </div>
+	</div>
+	
+	<div class="sidebox widget">
+		<h3 class="widget-title">Categories</h3>
+			<ul>
+				<li><a href="#">Detektivbyrån</a></li>
+				<li><a href="#">Flowers</a></li>
+				<li><a href="#">Funny</a></li>
+				<li><a href="#">Journal</a></li>
+				<li><a href="#">Landscape</a></li>
+				<li><a href="#">Nature</a></li>
+				<li><a href="#">Photography</a></li>
+				<li><a href="#">Video</a>
+			</li>
+		</ul>
+</div></div>
+<!--End Sidebar -->
+<div class="clear"></div>
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+<div class="footer-wrapper">
+<div id="footer" class="four">
+		<div id="first" class="widget-area">
+			<div class="widget widget_search">
+				<h3 class="widget-title">Search</h3>
+				<form class="searchform" method="get" action="#">
+					<input type="text" name="s" value="type and hit enter" onFocus="this.value=''" onBlur="this.value='type and hit enter'"/>
+				</form>
+			</div>
+			<div class="widget widget_archive">
+				<h3 class="widget-title">Archives</h3>
+				<ul>
+					<li><a href="#">September 2012</a> (6)</li>
+					<li><a href="#">August 2012</a> (2)</li>
+					<li><a href="#">July 2012</a> (2)</li>
+					<li><a href="#">June 2012</a> (4)</li>
+					<li><a href="#">May 2012</a> (3)</li>
+					<li><a href="#">January 2012</a> (1)</li>
+				</ul>
+			</div>	
+		</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area">
+			<div id="twitter-2" class="widget widget_twitter">
+					<h3 class="widget-title">Twitter</h3>
+					
+					<div id="twitter-wrapper">
+						<div id="twitter"></div>
+						<span class="username"><a href="http://twitter.com/elemisdesign">→ Follow @elemisdesign</a></span>
+					</div>
+			</div>
+		</div><!-- #second .widget-area -->
+	
+		<div id="third" class="widget-area">
+		<div id="example-widget-3" class="widget example">
+			<h3 class="widget-title">Popular Posts</h3>
+			<ul class="post-list">
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s1.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Charming Winter</a></h6>
+					    <em>28th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s2.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Trickling Stream</a></h6>
+					    <em>5th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<!--<a href="#"><img src="images/art/register.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <!-- <h6><a href="#">Morning Glory</a></h6> -->
+					    <!-- <em>26th Sep 2012</em> -->	
+				    </div>
+				</li>
+			</ul>
+			
+		</div>
+		</div><!-- #third .widget-area -->
+		
+		<div id="fourth" class="widget-area">
+		<div class="widget">
+			<h3 class="widget-title">Flickr</h3>
+			<ul class="flickr-feed"></ul>
+			
+		</div>
+		</div><!-- #fourth .widget-area -->
+	</div>
+</div>
+<div class="site-generator-wrapper">
+	<div class="site-generator">Copyright Obscura 2012. Design by <a href="http://elemisfreebies.com">elemis</a>. All rights reserved.</div>
+</div>
+<!-- End Footer --> 
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Video Library Management</title>
+<link rel="stylesheet" type="text/css" media="all" href="stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/media-queries.css" />
+<link rel="stylesheet" type="text/css" href="js/player/mediaelementplayer.css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,700,700italic|Open+Sans+Condensed:300,700' rel="stylesheet" type='text/css'>
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="stylesheets/ie9.css" media="all" />
+<![endif]-->
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="js/retina.js"></script>
+<script type="text/javascript" src="js/selectnav.js"></script>
+<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="js/mediaelement.min.js"></script>
+<script type="text/javascript" src="js/mediaelementplayer.min.js"></script>
+<script type="text/javascript" src="js/jquery.dcflickr.1.0.js"></script>
+<script type="text/javascript" src="js/twitter.min.js"></script>
+<script type="text/javascript">
+	$.backstretch("images/bg/1.jpg");
+</script>
+
+<script type="text/javascript"> 
+
+function setEditForm(blockId, linkId) {						  		  						
+
+	if(document.getElementById(blockId).style.display=="none"){ 
+		document.getElementById(blockId).style.display="block"; 
+		document.getElementById(linkId).innerHTML ="Cancel Edit"; 
+	} 
+	else if (document.getElementById(blockId).style.display=="block"){ 
+		document.getElementById(blockId).style.display="none"; 
+		document.getElementById(linkId).innerHTML ="Edit"; 
+	} 
+} 
+</script>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- Begin Header -->
+<div class="header-wrapper opacity">
+	<div class="header">
+		<!-- Begin Menu -->
+		<div id="menu-wrapper">
+			<div id="menu" class="menu">
+				<ul id="tiny">
+				<li class="active">
+				<a href="/admin_home">Home</a> </li>
+				<li><a href="userreg">Register New User </a></li>
+				<li><a href="/registermovie">Register New Movie </a></li>
+				<li><a href="/movie/cart/show">Cart </a></li>
+				<% if (typeof admin_fname != 'undefined') { %>
+					<li><a href="/logout">Logout</a></li>
+				<% } else { %>
+				<% } %>
+				
+						
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- End Menu -->
+	</div>
+</div>
+<!-- End Header -->
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro"> VIDEO LIBRARY MANAGEMENT SYSTEM </div>
+<ul class="social">
+<li><a class="rss" href="#"></a></li><li><a class="facebook" href="#"></a></li><li><a class="twitter" href="#"></a></li><li><a class="pinterest" href="#"></a></li><li><a class="dribbble" href="#"></a></li><li><a class="flickr" href="#"></a></li><li><a class="linkedin" href="#"></a></li></ul><!-- End Intro --> 
+
+<!-- Begin Container -->
+<div class="box">
+
+	<center><h1 class="title">Customer Details</h1></center><br><hr>
+	
+	<div class="one-half">
+	<% for (var i in results) {  
+		var user_id=results[i].user_id, 
+		first_name=results[i].first_name,
+		last_name=results[i].last_name;
+		email=results[i].EMAIL;
+		street=results[i].street;
+		city=results[i].city;
+		state=results[i].state;
+		zipcode=results[i].zipcode;
+	%>
+	
+		<h3>Full Name : <%=results[i].first_name%> <%=results[i].last_name%><br></h3>
+		<h3>Email : <%=email%><br></h3>
+		<h3>User Type : <%=results[i].type_of_user%><br></h3>
+		<h3>Account Balance : $<%=results[i].balance%> <br></h3>
+		<h3>Street Address : <%=results[i].street%> <br></h3>
+		<h3>City : <%=results[i].city%> <br></h3>
+		<h3>State : <%=results[i].state%> <br></h3>
+		<h3>Zipcode : <%=results[i].zipcode%> <br></h3>
+		<a id="editOption" href="#" class="button yellow" onclick="setEditForm('editForm','editOption')">Edit</a> 
+		<br><br>
+		
+	<% } %>
+	</div>
+	<div class="one-half last">
+		 
+		<form id="editForm" style="display:none;" action="/user/update?user_id=<%= user_id %>" method="post"> 
+			<center><h2>Edit Customer Details</h2></center> 
+			First Name :<input name="f_name" value="<%= first_name %>"/> 
+			Last Name :<input name="l_name" value="<%= last_name %>"/> 
+			Email :<input name="email" value="<%= email %>"/> 
+			Street :<input name="street" value="<%= street %>"/> 
+			City :<input name="city" value="<%= city %>"/> 
+			State :<input name="state" value="<%= state %>"/> 
+			Zipcode :<input name="zipcode" value="<%= zipcode %>"/> <br>
+			<input name='submit' type='submit' value='Save & Edit (Alt + C)' accesskey="s"/> 
+		 
+	</form>
+	</div>
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<br><br><br>
+	<h2>Movie History</h2>
+
+	
+	<% if (results1.length >=1) { %>		
+	
+	<center><h2>Movie Rented in the Past</h2>	</center>
+		<table>
+			<tr>
+				<th>Transaction ID</th>
+				<th>Movie Name</th>
+				<th>Movie Banner</th>
+				<th>Movie Release Date</th>
+				<th>Rent Amount</th>
+				
+				<th>IsReturned</th>
+			</tr>
+			<% for (var i in results1) {  %>
+			<tr>
+				<td><%=results1[i].transaction_id%></td>
+				<td><%=results1[i].movie_name%></td>
+				<td><%=results1[i].movie_banner%></td>
+				<td><%=results1[i].release_date%></td>
+				<td><%=results1[i].rent_amount%></td>
+				
+				<% if (results1[i].is_returned == 0) { %>
+				<form action="/returnmovie" method="post" >
+				<input type="hidden" name= "uid2" value="<%= results1[i].user_id %>">
+				<input type="hidden" name= "mid2" value="<%= results1[i].movie_id %>">
+				<input type="hidden" name= "tid2" value="<%= results1[i].transaction_id %>">
+					<td><input type="submit" class="button blue" value="Return Now" ></td>
+					</form>
+				<% } else { %>
+					<td>Returned</td>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+	<% } else { %>
+		<h6> No Movie History to Display </h6>
+	<% } %>
+
+
+</div>
+<!-- End Container -->
+
+<div class="clear"></div>
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+<div class="footer-wrapper">
+<div id="footer" class="four">
+		<div id="first" class="widget-area">
+			<div class="widget widget_search">
+				<h3 class="widget-title">Search</h3>
+				<form class="searchform" method="get" action="#">
+					<input type="text" name="s" value="type and hit enter" onFocus="this.value=''" onBlur="this.value='type and hit enter'"/>
+				</form>
+			</div>
+			<div class="widget widget_archive">
+				<h3 class="widget-title">Archives</h3>
+				<ul>
+					<li><a href="#">September 2012</a> (6)</li>
+					<li><a href="#">August 2012</a> (2)</li>
+					<li><a href="#">July 2012</a> (2)</li>
+					<li><a href="#">June 2012</a> (4)</li>
+					<li><a href="#">May 2012</a> (3)</li>
+					<li><a href="#">January 2012</a> (1)</li>
+				</ul>
+			</div>	
+		</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area">
+			<div id="twitter-2" class="widget widget_twitter">
+					<h3 class="widget-title">Twitter</h3>
+					
+					<div id="twitter-wrapper">
+						<div id="twitter"></div>
+						<span class="username"><a href="http://twitter.com/elemisdesign">→ Follow @elemisdesign</a></span>
+					</div>
+			</div>
+		</div><!-- #second .widget-area -->
+	
+		<div id="third" class="widget-area">
+		<div id="example-widget-3" class="widget example">
+			<h3 class="widget-title">Popular Posts</h3>
+			<ul class="post-list">
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s1.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Charming Winter</a></h6>
+					    <em>28th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s2.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Trickling Stream</a></h6>
+					    <em>5th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="images/art/s3.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Morning Glory</a></h6>
+					    <em>26th Sep 2012</em>
+				    </div>
+				</li>
+			</ul>
+			
+		</div>
+		</div><!-- #third .widget-area -->
+		
+		<div id="fourth" class="widget-area">
+		<div class="widget">
+			<h3 class="widget-title">Flickr</h3>
+			<ul class="flickr-feed"></ul>
+			
+		</div>
+		</div><!-- #fourth .widget-area -->
+	</div>
+</div>
+<div class="site-generator-wrapper">
+	<div class="site-generator">Copyright Obscura 2012. Design by <a href="http://elemisfreebies.com">elemis</a>. All rights reserved.</div>
+</div>
+<!-- End Footer --> 
+<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>

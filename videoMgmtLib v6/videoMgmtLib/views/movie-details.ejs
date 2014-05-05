@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Video Library Management</title>
+<link rel="stylesheet" type="text/css" media="all" href="/stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/media-queries.css" />
+<link rel="stylesheet" type="text/css" href="/js/player/mediaelementplayer.css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,700,700italic|Open+Sans+Condensed:300,700' rel="stylesheet" type='text/css'>
+<!--[if IE 8]>
+<link rel="stylesheet" type="text/css" href="/stylesheets/ie8.css" media="all" />
+<![endif]-->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" href="/stylesheets/ie9.css" media="all" />
+<![endif]-->
+
+<script type="text/javascript" src="http://localhost:4400/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/ddsmoothmenu.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/retina.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/selectnav.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/jquery.backstretch.min.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/mediaelement.min.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/mediaelementplayer.min.js"></script>
+<script type="text/javascript" src="http://localhost:4400/js/jq.js"></script>
+
+
+<script type="text/javascript">
+	$.backstretch("http://localhost:4400/images/bg/1.jpg");
+</script>
+
+<script type="text/javascript">
+function setEditForm(blockId, linkId) {
+	if(document.getElementById(blockId).style.display=="none"){
+		document.getElementById(blockId).style.display="block";
+		document.getElementById(linkId).innerHTML ="cancel edit";
+	}
+	else if(document.getElementById(blockId).style.display=="block"){
+		document.getElementById(blockId).style.display="none";
+		document.getElementById(linkId).innerHTML ="edit";
+	}
+}
+</script>
+
+<script type="text/javascript">
+function validateStock() {
+	var qty = document.getElementById('hidden_quantity').value;
+	
+	if (name == cname && banner == cbanner && rent_amount == crent_amount && release_date == crelease_date && category == ccategory && quantity == cquantity){
+			alert('No values changed to save'); return false;
+	}	
+	if (name.trim().length == 0 || banner.trim().length == 0 || quantity.trim().length == 0 || release_date.trim().length == 0 || category.trim().length == 0 || name.trim().length == 0 || rent_amount.trim().length == 0) {alert('Empty values not allowed'); return false;	}	
+
+}
+</script>
+
+
+<script type="text/javascript">
+function validateChange() {
+	var name = document.getElementById('m_name').value;
+	var cname = document.getElementById('cm_name').value;
+	
+	var banner = document.getElementById('banner').value;
+	var cbanner = document.getElementById('cbanner').value;
+	
+	var rent_amount = document.getElementById('rent_amount').value;
+	var crent_amount = document.getElementById('crent_amount').value;
+	
+	var release_date = document.getElementById('release_date').value;
+	var crelease_date = document.getElementById('crelease_date').value;
+	
+	var category = document.getElementById('category').value;
+	var ccategory = document.getElementById('ccategory').value;
+	
+	var quantity = document.getElementById('quantity').value;
+	var cquantity = document.getElementById('cquantity').value;
+	
+	if (name == cname && banner == cbanner && rent_amount == crent_amount && release_date == crelease_date && category == ccategory && quantity == cquantity){
+			alert('No values changed to save'); return false;
+	}
+	
+	if (name.trim().length == 0 || banner.trim().length == 0 || quantity.trim().length == 0 || release_date.trim().length == 0 || category.trim().length == 0 || name.trim().length == 0 || rent_amount.trim().length == 0) {alert('Empty values not allowed'); return false;	}
+	if (name.length > 100) { alert('Maximum length[100] exceeded'); return false; }
+	if (banner.length > 100) { alert('Maximum length[100] exceeded'); return false; }
+	if (release_date.length > 10) { alert('Maximum length[10] exceeded'); return false; }
+	if (rent_amount.length > 20) { alert('Maximum length[10] exceeded'); return false; }
+	if (category.length > 50) { alert('Maximum length[50] exceeded'); return false; }
+	if (quantity.length > 20) { alert('Maximum length[20] exceeded'); return false; }
+	
+
+}
+</script>
+
+<script>
+function getConfirmation()
+{
+	var conf = confirm("Sure? Press ok to delete the movie.");
+	if (conf == true) { return true;
+	} else { return false;	}
+}
+</script>
+
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- Begin Header -->
+<div class="header-wrapper opacity">
+	<div class="header">
+		<!-- Begin Logo -->
+		<div class="logo">
+		    <% if (typeof admin_fname != 'undefined') { %>
+		    	<h2>Welcome, <%= admin_fname %></h2>
+		    <% } else { %>
+		    	<h2>Welcome</h2>
+		    <% } %>
+	    </div>
+		<!-- End Logo -->
+		<!-- Begin Menu -->
+		<div id="menu-wrapper">
+			<div id="menu" class="menu">
+				<ul id="tiny">
+				<li class="active">
+				<a href="/admin_home">Home</a> </li>
+				<li><a href="userreg">Register New User </a></li>
+				<li><a href="/registermovie">Register New Movie </a></li>
+				<li><a href="/searchuser">Search </a></li>
+				<li><a href="/movie/cart/show">Cart </a></li>
+				<% if (typeof admin_fname != 'undefined') { %>
+					<li><a href="/logout">Logout</a></li>
+				<% } else { %>
+				<% } %>
+				
+						
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- End Menu -->
+	</div>
+</div>
+<!-- End Header -->
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro"> VIDEO LIBRARY MANAGEMENT SYSTEM </div>
+<ul class="social">
+<li><a class="rss" href="#"></a></li><li><a class="facebook" href="#"></a></li><li><a class="twitter" href="#"></a></li><li><a class="pinterest" href="#"></a></li><li><a class="dribbble" href="#"></a></li><li><a class="flickr" href="#"></a></li><li><a class="linkedin" href="#"></a></li></ul><!-- End Intro --> 
+
+<!-- Begin Container -->
+<div class="box">
+
+		<h1 class="title">About the movie...</h1>
+		
+		<div class="one-third">
+			<div class="outer none"><span class="inset"><img src="http://themes.iki-bir.com/obscura-wp/wp-content/uploads/about.jpg" alt="About" title="About" /></span></div>
+		</div>
+		<% var  m_id = movie[0].m_id,
+				m_name = movie[0].m_name,
+				banner = movie[0].banner,
+				release_date = movie[0].release_date,
+				rent_amount = movie[0].rent_amount,
+				category = movie[0].category,
+				quantity = movie[0].quantity %>
+	<div class="two-third last">
+        <h1><b>Movie Name:</b> <%= m_name %></h1>
+        <h4><b>Movie Banner:</b> <%= banner %></h4>
+        <h5 style="color:blue"><strong><span >You save &dollar;0.99</span>,  discounted price is &dollar;<%= rent_amount %></strong></h5>
+        <table>
+        	<tr>
+        		<th>Released On</th>
+        		<th>Genre</th>
+        		<th>Available Quantity</th>
+        	</tr>
+        	<tr>
+        		<td align='center'><%= release_date %></td>
+        		<td><%= category %></td>
+        		<td align='center'><%= quantity %></td>
+        	</tr>
+        </table>
+        <br/>
+
+<% if (quantity > 0) { %>
+<form name="addToCartForm" method="post" action="/movie/cart/add/<%= m_id %>">
+    <input type='hidden' name="hidden_m_name" id="cm_name" value="<%= m_name %>"/>
+	<input type='hidden'  id="hidden_rent_amount" name="hidden_rent_amount" value="<%= rent_amount %>"/>
+	<input type='hidden'  id="hidden_m_banner" name="hidden_m_banner" value="<%= banner %>"/>
+	<input type='hidden'  id="hidden_cat" name="hidden_cat" value="<%= category %>"/>
+	<input type='hidden'  id="hidden_release_date" name="hidden_release_date" value="<%= release_date %>"/>
+    <a class="button blue" onclick='return validateStock()' href="javascript:document.addToCartForm.submit()">add to cart</a>
+</form>
+<% } %>
+
+		<a id="editOption" href="#" class="button blue" onclick="setEditForm('editForm','editOption');return false">edit</a>
+		<form id="editForm" name="editForm" style="display:none;" onsubmit="return validateChange()" action="/movie/update/<%= m_id %>" method="post">
+			<div class="note-box">Movie Information:</br>
+				Name<input name="m_name" id="m_name" value="<%= m_name %>"/>
+				Banner<input  id="banner" name="banner" value="<%= banner %>"/>
+				Rent Amount<input id="rent_amount" name="rent_amount" value="<%= rent_amount %>"/>
+				Release date<input id="release_date" name="release_date" value="<%= release_date %>"/>
+				Genre<input id="category" name="category" value="<%= category %>"/>
+				Quantity<input id="quantity" name="quantity" value="<%= quantity %>"/>
+				
+				<input type='hidden' name="cm_name" id="cm_name" value="<%= m_name %>"/>
+				<input type='hidden'  id="crent_amount" name="crent_amount" value="<%= rent_amount %>"/>
+				<input  type='hidden' id="cbanner" name="cbanner" value="<%= banner %>"/>
+				<input type='hidden' id="crelease_date" name="crelease_date" value="<%= release_date %>"/>
+				<input type='hidden' id="ccategory" name="ccategory" value="<%= category %>"/>
+				<input type='hidden' id="cquantity" name="cquantity" value="<%= quantity %>"/>
+			</div>
+				<input class="button red" name='submit' type='submit' value='save (alt+s)' accesskey="s"/>
+		</form>
+<form name="deleteForm" method="post" action="/movie/delete/<%= m_id %>">
+    <a class="button blue" onclick='return getConfirmation()' href="javascript:document.deleteForm.submit()">delete</a>
+</form>
+<form name="listRentedMembersForm" method="post" action="/listRentedMembers/<%= m_id %>">
+    <a class="button blue" href="javascript:document.listRentedMembersForm.submit()">who rented?</a>
+</form>
+
+		</div>
+		<div class="clear"></div>
+</div>
+<!-- End Container -->
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+<div class="footer-wrapper">
+<div id="footer" class="four">
+		<div id="first" class="widget-area">
+			<div class="widget widget_search">
+				<h3 class="widget-title">Search</h3>
+				<form class="searchform" method="get" action="#">
+					<input type="text" name="s" value="type and hit enter" onFocus="this.value=''" onBlur="this.value='type and hit enter'"/>
+				</form>
+			</div>
+			<div class="widget widget_archive">
+				<h3 class="widget-title">Archives</h3>
+				<ul>
+					<li><a href="#">September 2012</a> (6)</li>
+					<li><a href="#">August 2012</a> (2)</li>
+					<li><a href="#">July 2012</a> (2)</li>
+					<li><a href="#">June 2012</a> (4)</li>
+					<li><a href="#">May 2012</a> (3)</li>
+					<li><a href="#">January 2012</a> (1)</li>
+				</ul>
+			</div>	
+		</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area">
+			<div id="twitter-2" class="widget widget_twitter">
+					<h3 class="widget-title">Twitter</h3>
+					
+					<div id="twitter-wrapper">
+						<div id="twitter"></div>
+						<span class="username"><a href="http://twitter.com/elemisdesign">→ Follow @elemisdesign</a></span>
+					</div>
+			</div>
+		</div><!-- #second .widget-area -->
+	
+		<div id="third" class="widget-area">
+		<div id="example-widget-3" class="widget example">
+			<h3 class="widget-title">Popular Posts</h3>
+			<ul class="post-list">
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="http://localhost:4400/images/art/s1.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Charming Winter</a></h6>
+					    <em>28th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="http://localhost:4400/images/art/s2.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Trickling Stream</a></h6>
+					    <em>5th Sep 2012</em>
+				    </div>
+				</li>
+				<li> 
+			  		<div class="frame">
+			  			<a href="#"><img src="http://localhost:4400/images/art/s3.jpg" /></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="#">Morning Glory</a></h6>
+					    <em>26th Sep 2012</em>
+				    </div>
+				</li>
+			</ul>
+			
+		</div>
+		</div><!-- #third .widget-area -->
+		
+		<div id="fourth" class="widget-area">
+		<div class="widget">
+			<h3 class="widget-title">Flickr</h3>
+			<ul class="flickr-feed"></ul>
+			
+		</div>
+		</div><!-- #fourth .widget-area -->
+	</div>
+</div>
+<div class="site-generator-wrapper">
+	<div class="site-generator">Copyright Obscura 2012. Design by <a href="http://elemisfreebies.com">elemis</a>. All rights reserved.</div>
+</div>
+<!-- End Footer --> 
+<script type="text/javascript" src="http://localhost:4400/js/scripts.js"></script>
+</body>
+</html>
